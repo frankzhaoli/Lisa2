@@ -9,9 +9,8 @@ int yylex();
 
 using namespace std;
 
+extern FILE *yyin;
 extern int linenum;
-
-
 %}
 
 %union {int num; char *id;}
@@ -21,8 +20,7 @@ extern int linenum;
 %token
 NEWLINE
 PRINT
-
-
+STRING
 ;
 
 
@@ -31,10 +29,12 @@ PRINT
 program : line   {;}
 ;
 
-line : print            {;}
-
-
-     | NEWLINE          {;}
+line : line print            {;}
+     | print                 {;}
+     | '(' NEWLINE           {cout<<"LPAR";}
+     | '+' NEWLINE           {cout<<"plus";}
+     | '"' NEWLINE           {cout<<"quote";}
+     | NEWLINE               {;}
 
 
 ;
@@ -52,8 +52,22 @@ void yyerror(char const *s)
   exit(-1);
 }
 
-
 int main()
 {
+
+  //open file
+  FILE *file=fopen("text.l2", "r");
+
+  //check for valid file
+  if(!file)
+  {
+    cout<<"File does not exist or cannot be opened."<<endl;
+    return -1;
+  }
+
+  //set input to file
+  yyin=file;
+
+  //begin parse
   return yyparse();
 }

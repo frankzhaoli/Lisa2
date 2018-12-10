@@ -39,7 +39,8 @@
       know about them.  */
    enum yytokentype {
      NEWLINE = 258,
-     PRINT = 259
+     PRINT = 259,
+     STRING = 260
    };
 #endif
 
@@ -50,12 +51,12 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 17 "lisa2.y"
+#line 16 "lisa2.y"
 int num; char *id;
 
 
 /* Line 1685 of yacc.c  */
-#line 59 "lisa2.tab.h"
+#line 60 "lisa2.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
